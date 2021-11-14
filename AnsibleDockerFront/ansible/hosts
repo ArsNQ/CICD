@@ -1,0 +1,5 @@
+[all:vars]
+ansible_user=admcloud
+
+[web]
+xxx.xxx.xxx.xxx

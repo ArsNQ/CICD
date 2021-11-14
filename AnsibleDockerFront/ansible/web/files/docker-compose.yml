@@ -1,0 +1,14 @@
+version: '3'
+
+networks:
+  website:
+    driver: bridge
+
+services:
+  front:
+    container_name: "container-front"
+    build:
+      context: /$PATH/$TO/$CHANGE
+      dockerfile: /$PATH/$TO/$CHANGE
+    ports:
+      - "3000:3000"

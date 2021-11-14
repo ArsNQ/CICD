@@ -1,0 +1,324 @@
+{
+  "meta": {
+    "code": 200,
+    "requestId": "60cb555b569dbf537815f5c4"
+  },
+  "response": {
+    "suggestedFilters": {
+      "header": "Touche pour afficher :",
+      "filters": [
+        {
+          "name": "Ouvert maintenant",
+          "key": "openNow"
+        }
+      ]
+    },
+    "headerLocation": "Vieux Lille",
+    "headerFullLocation": "Vieux Lille, Lille",
+    "headerLocationGranularity": "neighborhood",
+    "totalResults": 5,
+    "suggestedBounds": {
+      "ne": {
+        "lat": 50.6404080009,
+        "lng": 3.0661994679861495
+      },
+      "sw": {
+        "lat": 50.638607999099996,
+        "lng": 3.06336653201385
+      }
+    },
+    "groups": [
+      {
+        "type": "Recommended Places",
+        "name": "recommended",
+        "items": [
+          {
+            "reasons": {
+              "count": 0,
+              "items": [
+                {
+                  "summary": "Ce site est populaire",
+                  "type": "general",
+                  "reasonName": "globalInteractionReason"
+                }
+              ]
+            },
+            "venue": {
+              "id": "4ea04fe8775ba9493a79bbdf",
+              "name": "Crémerie Delassic",
+              "location": {
+                "address": "11 place des Patiniers",
+                "lat": 50.639535854376724,
+                "lng": 3.064827276515225,
+                "labeledLatLngs": [
+                  {
+                    "label": "display",
+                    "lat": 50.639535854376724,
+                    "lng": 3.064827276515225
+                  }
+                ],
+                "distance": 4,
+                "postalCode": "59000",
+                "cc": "FR",
+                "city": "Lille",
+                "state": "Nord-Pas-de-Calais",
+                "country": "France",
+                "formattedAddress": [
+                  "11 place des Patiniers",
+                  "59000 Lille",
+                  "France"
+                ]
+              },
+              "categories": [
+                {
+                  "id": "4bf58dd8d48988d11e951735",
+                  "name": "Fromagerie",
+                  "pluralName": "Fromageries",
+                  "shortName": "Fromagerie",
+                  "icon": {
+                    "prefix": "https://ss3.4sqi.net/img/categories_v2/shops/food_cheese_",
+                    "suffix": ".png"
+                  },
+                  "primary": true
+                }
+              ],
+              "photos": {
+                "count": 0,
+                "groups": []
+              }
+            },
+            "referralId": "e-0-4ea04fe8775ba9493a79bbdf-0"
+          },
+          {
+            "reasons": {
+              "count": 0,
+              "items": [
+                {
+                  "summary": "Ce site est populaire",
+                  "type": "general",
+                  "reasonName": "globalInteractionReason"
+                }
+              ]
+            },
+            "venue": {
+              "id": "4c10c34bce640f47fd5d3a52",
+              "name": "Le repaire du lion",
+              "location": {
+                "address": "6 Place du Lion d'Or",
+                "lat": 50.64014797475386,
+                "lng": 3.064598152326426,
+                "labeledLatLngs": [
+                  {
+                    "label": "display",
+                    "lat": 50.64014797475386,
+                    "lng": 3.064598152326426
+                  }
+                ],
+                "distance": 72,
+                "postalCode": "59800",
+                "cc": "FR",
+                "city": "Lille",
+                "state": "Nord-Pas-de-Calais",
+                "country": "France",
+                "formattedAddress": [
+                  "6 Place du Lion d'Or",
+                  "59800 Lille",
+                  "France"
+                ]
+              },
+              "categories": [
+                {
+                  "id": "52e81612bcbc57f1066b79f2",
+                  "name": "Crêperie",
+                  "pluralName": "Crêperies",
+                  "shortName": "Crêperie",
+                  "icon": {
+                    "prefix": "https://ss3.4sqi.net/img/categories_v2/food/creperie_",
+                    "suffix": ".png"
+                  },
+                  "primary": true
+                }
+              ],
+              "photos": {
+                "count": 0,
+                "groups": []
+              }
+            },
+            "referralId": "e-0-4c10c34bce640f47fd5d3a52-1"
+          },
+          {
+            "reasons": {
+              "count": 0,
+              "items": [
+                {
+                  "summary": "Ce site est populaire",
+                  "type": "general",
+                  "reasonName": "globalInteractionReason"
+                }
+              ]
+            },
+            "venue": {
+              "id": "4bc84caeaf07a593e68f802d",
+              "name": "Notting Hill Coffee",
+              "location": {
+                "address": "19 place des Patiniers",
+                "lat": 50.63979736651321,
+                "lng": 3.064501615406604,
+                "labeledLatLngs": [
+                  {
+                    "label": "display",
+                    "lat": 50.63979736651321,
+                    "lng": 3.064501615406604
+                  }
+                ],
+                "distance": 37,
+                "postalCode": "59800",
+                "cc": "FR",
+                "city": "Lille",
+                "state": "Nord-Pas-de-Calais",
+                "country": "France",
+                "formattedAddress": [
+                  "19 place des Patiniers",
+                  "59800 Lille",
+                  "France"
+                ]
+              },
+              "categories": [
+                {
+                  "id": "4bf58dd8d48988d16d941735",
+                  "name": "Café",
+                  "pluralName": "Cafés",
+                  "shortName": "Café",
+                  "icon": {
+                    "prefix": "https://ss3.4sqi.net/img/categories_v2/food/cafe_",
+                    "suffix": ".png"
+                  },
+                  "primary": true
+                }
+              ],
+              "photos": {
+                "count": 0,
+                "groups": []
+              }
+            },
+            "referralId": "e-0-4bc84caeaf07a593e68f802d-2"
+          },
+          {
+            "reasons": {
+              "count": 0,
+              "items": [
+                {
+                  "summary": "Ce site est populaire",
+                  "type": "general",
+                  "reasonName": "globalInteractionReason"
+                }
+              ]
+            },
+            "venue": {
+              "id": "4bcf3580a8b3a593cdbf615f",
+              "name": "Au Point Central",
+              "location": {
+                "address": "Place des Patiniers",
+                "lat": 50.639467642715715,
+                "lng": 3.0649020535048797,
+                "labeledLatLngs": [
+                  {
+                    "label": "display",
+                    "lat": 50.639467642715715,
+                    "lng": 3.0649020535048797
+                  }
+                ],
+                "distance": 9,
+                "postalCode": "59800",
+                "cc": "FR",
+                "city": "Lille",
+                "state": "Nord-Pas-de-Calais",
+                "country": "France",
+                "formattedAddress": [
+                  "Place des Patiniers",
+                  "59800 Lille",
+                  "France"
+                ]
+              },
+              "categories": [
+                {
+                  "id": "4bf58dd8d48988d16d941735",
+                  "name": "Café",
+                  "pluralName": "Cafés",
+                  "shortName": "Café",
+                  "icon": {
+                    "prefix": "https://ss3.4sqi.net/img/categories_v2/food/cafe_",
+                    "suffix": ".png"
+                  },
+                  "primary": true
+                }
+              ],
+              "photos": {
+                "count": 0,
+                "groups": []
+              }
+            },
+            "referralId": "e-0-4bcf3580a8b3a593cdbf615f-3"
+          },
+          {
+            "reasons": {
+              "count": 0,
+              "items": [
+                {
+                  "summary": "Ce site est populaire",
+                  "type": "general",
+                  "reasonName": "globalInteractionReason"
+                }
+              ]
+            },
+            "venue": {
+              "id": "4bab0f83f964a5207e933ae3",
+              "name": "Honey & Pie",
+              "location": {
+                "address": "47-53 rue de la Clef",
+                "lat": 50.63961904549947,
+                "lng": 3.0647657350292388,
+                "labeledLatLngs": [
+                  {
+                    "label": "display",
+                    "lat": 50.63961904549947,
+                    "lng": 3.0647657350292388
+                  }
+                ],
+                "distance": 12,
+                "postalCode": "59800",
+                "cc": "FR",
+                "city": "Lille",
+                "state": "Nord-Pas-de-Calais",
+                "country": "France",
+                "formattedAddress": [
+                  "47-53 rue de la Clef",
+                  "59800 Lille",
+                  "France"
+                ]
+              },
+              "categories": [
+                {
+                  "id": "4bf58dd8d48988d143941735",
+                  "name": "Lieu servant des petits déjeuners",
+                  "pluralName": "Lieux servant des petits déjeuners",
+                  "shortName": "Petit déjeuner",
+                  "icon": {
+                    "prefix": "https://ss3.4sqi.net/img/categories_v2/food/breakfast_",
+                    "suffix": ".png"
+                  },
+                  "primary": true
+                }
+              ],
+              "photos": {
+                "count": 0,
+                "groups": []
+              }
+            },
+            "referralId": "e-0-4bab0f83f964a5207e933ae3-4"
+          }
+        ]
+      }
+    ]
+  }
+}

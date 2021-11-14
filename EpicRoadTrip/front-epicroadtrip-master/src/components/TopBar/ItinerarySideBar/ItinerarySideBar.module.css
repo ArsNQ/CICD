@@ -1,0 +1,58 @@
+.sideBarContainer {
+    margin: auto;
+}
+
+.title {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 23px;
+}
+
+.actualItinerary {
+    background-color: #E0E0E0;
+    border-radius: 15px;
+    width: 90%;
+    margin: auto;
+    margin-top: 4%;
+    margin-bottom: 4%;
+    padding: 15px;
+}
+
+.actualItineraryTitle {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.actualItineraryItemList {
+    padding: 10px;
+    color: #F05C51;
+    margin-top: 15px;
+    border-radius: 15px;
+}
+
+
+
+.saveItineraryButton {
+    background-color: #F05C51;
+    padding: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 30px;
+    width: max-content;
+    cursor: pointer;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.disabled {
+    background-color: #ccc!important;
+    cursor: not-allowed!important;
+}
+
+.savedItineraryPart {
+    background-color: #E0E0E0;
+    width: 90%;
+    margin: auto;
+    padding: 15px;
+    border-radius: 15px;
+}

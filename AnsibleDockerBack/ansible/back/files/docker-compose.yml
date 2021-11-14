@@ -1,0 +1,20 @@
+version: '3'
+
+volumes:
+  container-images:
+    external: true
+
+networks:
+  website:
+    driver: bridge
+
+services:
+  back:
+    container_name: "container-back"
+    build:
+      context: /$PATH/$TO/$CHANGE
+      dockerfile: /$PATH/$TO/$CHANGE
+    ports:
+      - "8080:8080"
+    volumes:
+      - container-images:/app/data

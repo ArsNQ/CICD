@@ -1,0 +1,62 @@
+.container {
+    background-color: white;
+    border-radius: 15px;
+    width: 85%;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    box-shadow: 0 0 5px #ccc;
+    cursor: grab;
+    position: relative;
+}
+
+.containerLeft {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+.icon {
+    background-color: dodgerblue;
+    width: 42px;
+    height: 42px;
+    border-radius: 21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon span {
+    color:white;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.iconDeleteContainer {
+    border-radius: 50%;
+    color: white;
+    background-color:  rgb(226, 71, 71);
+    transform: rotate(-45deg);
+
+    height: 35px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.iconDelete {
+    transform: translateY(-3px);
+    font-size: 30px;
+}

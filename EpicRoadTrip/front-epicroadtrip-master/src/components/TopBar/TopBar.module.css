@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+.TopBarContainer {
+    display: flex;
+    width: 100%;
+    height: 80px;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+}
+
+.logo {
+    font-family: 'Indie Flower', sans-serif;
+    color: var(--primary-color);
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@media (max-width: 800px) {
+    .logo {
+        font-size: 30px;
+    }
+}
+
+.mapIcon {
+    color:var(--primary-color);
+    font-size: 35px !important;
+}
+
+.linkPosition {
+    position: absolute;
+    right: 10px;
+}
+
+.saveItinerary {
+    position: absolute;
+    left: 20px;
+    text-transform: uppercase;
+    background-color: #F05C51;
+    padding: 10px;
+    border-radius: 30px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .saveItinerary {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 500px) {
+    .TopBarContainer {
+        justify-content: space-between;
+    }
+    .linkPosition {
+        position: relative;
+    }
+    .saveItinerary {
+        position: relative;
+    }
+}
+
+.sideBarItinerary {
+    height: 100vh;
+    width: 25%;
+    background-color: #fff;
+    z-index: 10000;
+    position: fixed;
+    top: 0;
+    left: -300px;
+    box-sizing: border-box;
+    padding: 30px;
+    transition: transform .3s ease-in-out;
+    overflow-x: hidden;
+}
+
+.translate {
+    transform: translateX(300px);
+}
+
+.translateBack {
+    transform: translateX(-300px);
+}
+
+.background {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.7);
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+}

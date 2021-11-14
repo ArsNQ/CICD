@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+
+.HomeContainer {
+    margin: auto;
+    height: 100vh;
+    background: linear-gradient(to bottom, #fff, #fff 80px, transparent 400px, transparent 100%), center / cover no-repeat url('../../assets/background-road.jpg');
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.mainText {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+    font-family: Righteous, roboto, serif;
+    color: white;
+}
+
+.firstTextTitle {
+    text-align: center;
+    font-size: 60px;
+}
+
+.secondTextTitle {
+    text-align: center;
+    font-size: 160px;
+    margin-top: 2%;
+}
+
+.thirdTextTitle {
+    text-align: center;
+    font-size: 50px;
+    margin-top: 6%;
+}
+
+@media (max-width: 900px) {
+    .firstTextTitle {
+        font-size: 40px;
+    }
+    .secondTextTitle {
+        font-size: 100px;
+    }
+}
+
+@media (max-width: 550px) {
+    .firstTextTitle {
+        font-size: 20px;
+    }
+    .secondTextTitle {
+        font-size: 50px;
+    }
+}

@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  front:
+    build:
+      context: .
+      dockerfile: ./front/Dockerfile
+    ports:
+      - 8080:80
+    restart: always
+    command: sh command.sh
+    volumes:
+      - ./front/app:/app
+      - /build-dir/build
+      - ./nginx-ssl/public/build:/app/build
+

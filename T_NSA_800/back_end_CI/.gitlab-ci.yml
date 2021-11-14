@@ -1,0 +1,53 @@
+stages:
+  - build
+  - test
+  - docker-build
+
+cache:
+  key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+
+build: 
+    stage: build
+    image: node:11-alpine
+    script:
+      - yarn install --silent
+    artifacts:
+      expire_in: 1 month
+      paths:
+        - build
+        - node_modules/
+
+#test:
+#    stage: test
+#    image: weboaks/node-karma-protractor-chrome
+#    script:
+#        - yarn install --silent
+#        - yarn run test
+#    allow_failure: true
+
+#lint: 
+#    stage: test
+#    image: node:11-alpine
+#    script:
+#        - yarn install --silent
+#        - yarn run lint
+#    allow_failure: true
+  
+docker:
+  stage: docker-build
+  image: mullnerz/ansible-playbook:2.9.1
+  only :
+    - master
+  before_script:
+    #Generating the SSH key
+    - mkdir -p ~/.ssh
+    - echo -e "$PRIVATE_SSH_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - export IMAGE_NAME="$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME"
+    - export DEPLOY_TARGET=Production
+    - cd ansible
+  script:
+    #Executing the ansible-playbook
+    - chmod -v 700 $(pwd)
+    - ansible-playbook --key-file ~/.ssh/id_rsa  playbook.yml -i hosts

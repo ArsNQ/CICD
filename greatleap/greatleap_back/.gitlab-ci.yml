@@ -1,0 +1,79 @@
+image: node:latest
+stages:
+  - Build_CI
+  - Test_CI
+  - Publish_DCK
+  - Deploy_DCK
+
+variables:
+  TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
+  TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+  
+cache:
+  paths:
+    - node_modules/
+
+Build:
+  stage: Build_CI
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules/
+  script:
+    - yarn install
+
+Lint:
+    stage: Test_CI
+    script:
+        - npm install --silent
+        - npm run lint
+    allow_failure: true
+
+Test:
+    stage: Test_CI
+    script:
+#       - npm install --silent
+        - npm run test
+#    artifacts:
+#        paths:
+#        - build
+
+#Build:
+#  stage: Build
+#  script:
+#    - npm install
+#  artifacts:
+#    paths:
+#      - node_modules/
+
+#Test:
+#  stage: Test
+#  script: npm test
+
+Publish_Docker:
+  image: docker:latest
+  stage: Publish_DCK
+  services:
+    - docker:dind
+  script:
+    - docker build -t $TAG_COMMIT -t $TAG_LATEST .
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push $TAG_COMMIT
+    - docker push $TAG_LATEST
+
+Deploy_Docker:
+  image: alpine:latest
+  stage: Deploy_DCK
+  script:
+    - chmod og= $ID_RSA
+    - apk update && apk add openssh-client
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull $TAG_COMMIT"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker container rm -f BACK || true"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker run -d -p 8081:8081 --name BACK $TAG_COMMIT"
+  environment:
+    name: deployement
+    url: https://135.125.107.20/
+  when: manual
+  only:
+    - master

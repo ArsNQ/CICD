@@ -1,0 +1,142 @@
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+
+:root {
+    --font: Righteous, roboto, serif;
+}
+
+.SearchBlockContainer {
+    width: 80%;
+    height: 160px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 150px;
+}
+
+.topPart {
+    display: flex;
+    flex-direction: row;
+}
+
+.BottomPart {
+    background-color: white;
+    flex: 1;
+    border-radius: 0 10px 10px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    column-gap: 40px;
+    padding: 0 40px;
+}
+
+
+.input {
+    font-family: var(--font);
+    flex: 1;
+    height: 30px;
+}
+
+.seeAroundContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    height: auto;
+    margin-top: 3%;
+}
+
+.roadTripContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    height: auto;
+    margin-top: 3%;
+}
+
+.roadTripButton {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 10px 50px;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 30%;
+    cursor: pointer;
+    border-radius: 30px;
+    flex: 2;
+}
+
+.SearchBlockInputSeeAround {
+
+}
+
+.SeeAroundButton {
+    width: 45%;
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 10px 50px;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    flex: 1;
+    max-width: 50%;
+}
+
+.topPartItemCommon {
+    width: max-content;
+    padding: 10px 30px;
+    font-family: var(--font);
+    color: var(--primary-color);
+    background-color: white;
+    border-bottom: 3px solid var(--primary-color);
+}
+
+
+.topPartItemDisable {
+    color: white;
+    background: rgba(77,72,72,.68);
+    cursor: pointer;
+    border-bottom: none;
+}
+
+.seeAround {
+    border-radius: 0 5px 0 0;
+}
+
+.RoadTrip {
+    border-radius: 5px 0 0 0;
+}
+
+@media (max-width: 1470px) {
+    .roadTripButton {
+        font-size: 15px;
+    }
+}
+
+
+@media (max-width: 800px) {
+    .BottomPart {
+        flex-direction: column;
+    }
+    .SearchBlockContainer {
+        height: 300px;
+    }
+    .SeeAroundButton {
+        flex: none;
+    }
+    .roadTripButton {
+        flex: none;
+    }
+}
+

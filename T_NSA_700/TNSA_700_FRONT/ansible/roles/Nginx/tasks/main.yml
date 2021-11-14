@@ -1,0 +1,11 @@
+- name: Ensure nginx is on the last version.
+  apt:
+    name:
+    - nginx-common
+    - nginx
+    state: latest
+
+- name: reload nginx
+  service:
+    name: nginx
+    state: reloaded

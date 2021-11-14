@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  front:
+    container_name: PROD_FRONT
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    stdin_open: true
+    ports:
+      - "3000:3000"

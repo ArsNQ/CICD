@@ -1,0 +1,88 @@
+version: '3.7'
+
+services:
+  # Node Exporter
+  node-exporter:
+    image: prom/node-exporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+    ports:
+      - 9100:9100
+    restart: always
+
+  traefik:
+    image: traefik:1.7
+    restart: always
+    command:
+      - "--web"
+      - "--docker"
+      - "--docker.domain=default-group0-web.francecentral.cloudapp.azure.com"
+      - "--metrics.prometheus=true"
+    depends_on:
+    - "result"
+    - "vote"
+    ports:
+    - "80:80"
+    - "8080:8080"
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /dev/null:/traefik.toml
+    networks:
+      - front-tier
+      - back-tier
+
+  vote:
+    image: "default-admin.francecentral.cloudapp.azure.com:5000/vote:latest"
+    restart: always
+    ports:
+      - "5000:80"
+    networks:
+      - front-tier
+      - back-tier
+    command:
+      - /entrypoint.sh
+      - "python app.py"
+      - "default-group2-database.francecentral.cloudapp.azure.com"
+    environment:
+      - PREFIX=/vote
+    labels:
+    - "traefik.frontend.rule=Host:default-group2-web.francecentral.cloudapp.azure.com;PathPrefix:/vote,/static,/dotnet"
+    - "traefik.port=80"
+
+  result:
+    image: "default-admin.francecentral.cloudapp.azure.com:5000/result:latest"
+    restart: always
+    ports:
+      - "5001:80"
+      - "5858:5858"
+    networks:
+      - front-tier
+      - back-tier
+    command:
+      - /entrypoint.sh
+      - "nodemon server.js"
+      - "default-group2-database.francecentral.cloudapp.azure.com"
+    labels:
+    - "traefik.port=80"
+    - "traefik.frontend.rule=Host:default-group2-web.francecentral.cloudapp.azure.com"
+
+  worker:
+    image: "default-admin.francecentral.cloudapp.azure.com:5000/worker:latest"
+    restart: always
+    networks:
+      - back-tier
+    entrypoint: /entrypoint.sh
+    command:
+      - "dotnet Worker.dll"
+      - "default-group2-database.francecentral.cloudapp.azure.com"
+
+networks:
+  front-tier:
+  back-tier:

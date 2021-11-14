@@ -1,0 +1,60 @@
+stages:
+  - testing
+  - build
+  - deploy
+
+testing:
+  image: docker:19.03.13
+  stage: testing
+  only:
+    - merge_requests
+  services:
+    - docker:19.03.13-dind
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker build -f ./docker/api/Dockerfile .
+    - docker build -f ./docker/app/Dockerfile .
+
+building:
+  image: docker:19.03.13
+  stage: build
+  rules:
+    - if: $CI_COMMIT_TAG
+  services:
+    - docker:19.03.13-dind
+  variables:
+    IMAGE_TAG_API: $CI_REGISTRY_IMAGE:api-$CI_COMMIT_TAG
+    IMAGE_TAG_APP: $CI_REGISTRY_IMAGE:app-$CI_COMMIT_TAG
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - echo $CI_COMMIT_TAG
+    - docker build -t $IMAGE_TAG_API -f ./docker/api/Dockerfile .
+    - docker build -t $IMAGE_TAG_APP -f ./docker/app/Dockerfile .
+    - docker push $IMAGE_TAG_API
+    - docker push $IMAGE_TAG_APP
+
+deploy_prod:
+  image: docker:latest
+  stage: deploy
+
+  variables:
+    IMAGE_TAG_API: $CI_REGISTRY_IMAGE:api-$CI_COMMIT_TAG
+    IMAGE_TAG_APP: $CI_REGISTRY_IMAGE:app-$CI_COMMIT_TAG
+
+  rules:
+    - if: $CI_COMMIT_TAG
+  before_script:
+    - "command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )"
+    - mkdir -p ~/.ssh
+    - echo "$PRIVATE_SSH_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh/id_rsa
+    - eval "$(ssh-agent -s)"
+    - ssh-add ~/.ssh/id_rsa
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+  script:
+    - apk update && apk add bash > /dev/null
+    - echo "API_VERSION=$IMAGE_TAG_API" > .env
+    - echo "APP_VERSION=$IMAGE_TAG_APP" >> .env
+    - scp .env root@167.99.88.130:/root/time_manager/
+    - ssh root@167.99.88.130 "cd time_manager && docker-compose down && ./login_docker.sh && docker-compose pull && docker-compose up -d db && docker-compose run phoenix mix ecto.migrate && docker-compose down && docker-compose up -d"

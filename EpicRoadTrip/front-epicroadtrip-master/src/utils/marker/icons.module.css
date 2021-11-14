@@ -1,0 +1,16 @@
+.container {
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    background-color: var(--primary-color);
+    border: #555555 1px solid;
+}
+
+.selected {
+    background-color: #000
+}
+
+.img {
+    height: 100%;
+    width: 100%;
+}

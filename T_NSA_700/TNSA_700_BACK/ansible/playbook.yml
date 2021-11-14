@@ -1,0 +1,17 @@
+- name: Installing dependencies
+  hosts: Backend
+  connection: ssh
+  roles:
+    - Base
+
+- name: Building MysqlDatabase
+  hosts: Database
+  connection: ssh
+  roles:
+    - Mysql
+
+- name: Building Application and Hosting
+  hosts: Backend
+  connection: ssh
+  roles:
+    - Production

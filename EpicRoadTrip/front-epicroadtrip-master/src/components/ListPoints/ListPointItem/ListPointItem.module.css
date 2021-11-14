@@ -1,0 +1,73 @@
+.container {
+    background-color: white;
+    border-radius: 15px;
+    width: 85%;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    box-shadow: 0 0 5px #ccc;
+    cursor: pointer;
+    position: relative;
+}
+
+.containerSelected {
+    border: solid 2px var(--primary-color);
+}
+
+.name {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+.selectedName {
+    color: var(--primary-color)
+}
+
+.category {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 5px 0;
+}
+
+
+.categoryText {
+    font-style: italic;
+    margin: 0 10px;
+}
+
+.address {
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.addToRouter {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border-radius: 50%;
+    color: white;
+    background-color: rgb(150, 187, 0);
+
+    height: 35px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.isInRouter {
+    background-color:  rgb(226, 71, 71);
+    transform: rotate(-45deg);
+}
+
+.icon {
+    transform: translateY(-3px);
+    font-size: 30px;
+}
+
+.iconInRouter {
+
+}

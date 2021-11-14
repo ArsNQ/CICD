@@ -1,0 +1,12 @@
+---
+# tasks file for web
+- git:
+    repo: 'https://gitlab+deploy-token-xxxxxx:xxxxxxxxxxxxxxxx@gitlab.com/$PATH/$OF/$GIT'
+    dest: '/$PATH/$TO/$CHANGE'
+    force: yes
+    update: yes
+
+- name: docker build repos
+  command: docker-compose --env-file ./.env up --force-recreate --build -d
+  args:
+    chdir: '/$PATH/$TO/$CHANGE'

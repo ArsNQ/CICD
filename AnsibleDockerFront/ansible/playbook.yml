@@ -1,0 +1,7 @@
+# Web role
+- hosts: web
+  connection: ssh
+  become: yes
+  become_user: root
+  roles:
+    - web

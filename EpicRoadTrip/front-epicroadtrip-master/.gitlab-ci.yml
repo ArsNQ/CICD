@@ -1,0 +1,76 @@
+image: node:latest
+stages:
+  - Build_CI
+  - Test_CI
+  - Publish_DCK
+  - Deploy_DCK
+
+variables:
+  TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
+  TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+
+cache:
+  paths:
+    - node_modules/
+
+Build:
+  stage: Build_CI
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules/
+  script:
+    - yarn install
+
+#Lint:
+#    stage: Test_CI
+#    script:
+#        - npm install --silent
+#        - npm run lint
+#    allow_failure: true
+
+#Test:
+#    stage: Test_CI
+#    script:
+#      - yarn test
+#    artifacts:
+#        paths:
+
+#Build:
+#  stage: Build
+#  script:
+#    - npm install
+#  artifacts:
+#    paths:
+#      - node_modules/
+
+#Test:
+#  stage: Test
+#  script: npm test
+
+Publish_Docker:
+  image: docker:latest
+  stage: Publish_DCK
+  services:
+    - docker:dind
+  script:
+    - docker build -t $TAG_COMMIT -t $TAG_LATEST .
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push $TAG_COMMIT
+    - docker push $TAG_LATEST
+
+Deploy_Docker:
+  image: alpine:latest
+  stage: Deploy_DCK
+  before_script:
+  - chmod 600 $id_rsa
+  - apk update && apk add openssh-client && apk add --update --no-cache openssh sshpass
+
+  script:
+    - sshpass -p $password ssh -i $id_rsa -o StrictHostKeyChecking=no $server_user@$server_ip "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
+    - sshpass -p $password ssh -i $id_rsa -o StrictHostKeyChecking=no $server_user@$server_ip "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
+    - sshpass -p $password ssh -i $id_rsa -o StrictHostKeyChecking=no $server_user@$server_ip "docker pull $TAG_COMMIT"
+    - sshpass -p $password ssh -i $id_rsa -o StrictHostKeyChecking=no $server_user@$server_ip "docker container rm -f front_epicroadtrip || true"
+    - sshpass -p $password ssh -i $id_rsa -o StrictHostKeyChecking=no $server_user@$server_ip "docker run -d -p 80:80 --name front_epicroadtrip $TAG_COMMIT"
+ # when: manual
+ # only:

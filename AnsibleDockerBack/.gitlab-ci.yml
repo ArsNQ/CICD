@@ -1,0 +1,73 @@
+image: node:latest
+stages:
+  - Build
+  - SonarQube
+  - Registry
+  - Deploy
+
+variables:
+  TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
+  TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+cache:
+  paths:
+    - node_modules/
+
+##Test Deploy
+Build:
+  stage: Build
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules/
+  script:
+    - yarn install
+  allow_failure: false
+
+SonarQube-Check:
+  image: 
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  stage: SonarQube
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+    GIT_DEPTH: "0"
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script: 
+    - sonar-scanner
+  allow_failure: yes
+
+Registry:
+  image: docker:latest
+  stage: Registry
+  services:
+    - docker:dind
+  script:
+    - docker build -t $TAG_COMMIT -t $TAG_LATEST .
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push $TAG_COMMIT
+    - docker push $TAG_LATEST
+  only:
+    - master
+
+Deploy_Docker:
+  stage: Deploy
+  image: mullnerz/ansible-playbook:2.9.1
+  only :
+    - master
+  before_script:
+    #Generating the SSH key
+    - mkdir -p ~/.ssh
+    - echo -e "$ID_RSA" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - export IMAGE_NAME="$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME"
+    - export DEPLOY_TARGET=Production
+    - cd ansible
+  script:
+    #Executing the ansible-playbook
+    - chmod -v 700 $(pwd)
+    - ansible-playbook --key-file ~/.ssh/id_rsa playbook.yml -i hosts
+  when: manual

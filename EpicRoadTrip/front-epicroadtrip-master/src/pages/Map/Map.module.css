@@ -1,0 +1,20 @@
+.container {
+    margin: auto;
+}
+
+.subContainer {
+    height: calc(100vh - 80px);
+    width: 100vw;
+    display: flex;
+}
+
+@media (max-width: 1000px) {
+    .subContainer {
+        flex-direction: column;
+    }
+}
+
+.rightContainer {
+    width: 75%;
+    height: 100%;
+}

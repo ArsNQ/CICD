@@ -1,0 +1,15 @@
+- git:
+    repo: 'http://deploy:cGxm6kp5DaeDZCzLgU4o@192.168.0.32/root/front-end.git'
+    dest: '/var/www/gitlab-deployment/repos/'
+    force: yes
+    update: yes
+
+- name: docker build repos
+  command: docker-compose up --force-recreate --build -d
+  args:
+    chdir: /var/www/gitlab-deployment/repos/
+
+- name: docker up nginx
+  command: docker-compose up -d
+  args:
+    chdir: /var/www/gitlab-deployment/repos/nginx-ssl/

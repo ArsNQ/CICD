@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  express:
+    container_name: "BACK"
+    build:
+      context: ./
+      dockerfile: ./Docker/Dockerfile
+    ports:
+      - "8081"

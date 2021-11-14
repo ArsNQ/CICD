@@ -1,0 +1,44 @@
+---
+# tasks file for web
+- name: Copying the Docker-Compose file.
+  copy:
+    src: docker-compose.yml
+    dest: /etc/
+
+# Transer files Result/Vote/Worker
+- name: Transfer file Result
+  synchronize:
+    src: result_image.tar
+    dest: /etc/
+
+- name: Transfer file Vote
+  synchronize:
+    src: vote_image.tar
+    dest: /etc/
+
+- name: Transfer file Worker
+  synchronize:
+    src: worker_image.tar
+    dest: /etc/
+
+# Docker load images Result/Vote/Worker
+- name : Docker load Result
+  command: docker load -i result_image.tar
+  args: 
+    chdir: /etc/
+
+- name : Docker load Vote
+  command: docker load -i vote_image.tar
+  args: 
+    chdir: /etc/
+
+- name : Docker load Worker
+  command: docker load -i worker_image.tar
+  args:
+    chdir: /etc/
+
+# Docker Build
+- name: docker build repos
+  command: docker-compose up --force-recreate -d
+  args:
+    chdir: /etc/

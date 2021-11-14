@@ -1,0 +1,29 @@
+#--------- BACK ---------#
+
+To launch the back, you need to run the following commands
+
+- mix ecto.create
+- mix ecto.migrate
+- mix run priv/repo/seeds.exs 
+
+Then launch the phoenix server with this command
+
+- mix phx.server
+
+Generic Admin user
+
+Username : admin@admin.fr
+Password : test1234!
+
+#--------- FRONT ---------#
+
+For the front, you need to run the following commands
+
+- npm install
+- npm run serve
+
+#--------- DEVOPS --------#
+
+You have 3 .gitlab-ci.yml, one in the timemanager directory, one in the app directory, one in the api directory.
+
+You have 3 docker directory one in the timemanager directory, one in the app directory, one in the api directory. With 3 docker-compose.

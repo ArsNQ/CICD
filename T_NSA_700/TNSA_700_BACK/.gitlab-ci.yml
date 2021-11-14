@@ -1,0 +1,107 @@
+image: vincentcau/laravel-docker:latest
+stages:
+  - Build
+  - Test
+  - Deploy
+  - Security
+
+cache:
+  key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+
+COMPOSER:
+  stage: Build
+  script:
+    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+    - cp .env.example .env
+    - php artisan key:generate
+  cache:
+    paths:
+      - vendor/
+  artifacts:
+    paths:
+      - vendor/
+      - .env
+    expire_in: 1 days
+    when: always
+
+NPM_INSTALL:
+  stage: Build
+  script:
+    - npm install
+    - npm run production
+  cache:
+    paths:
+      - node_modules/
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1 days
+    when: always
+
+PHP_UNIT:
+  stage: Test
+  image : edbizarro/gitlab-ci-pipeline-php:7.3
+  script:
+    - vendor/bin/phpunit tests
+  artifacts:
+    paths:
+      - artifacts/
+    expire_in: 1 week
+
+CODE_STYLE:
+  stage: Test
+  allow_failure: true
+  image: lorisleiva/laravel-docker
+  script:
+    - phpcs --extensions=php app
+  artifacts:
+    paths:
+      - artifacts/
+    expire_in: 1 week
+
+COPY/PASTE DETECTOR:
+  stage: Test
+  script:
+    - test -f phpcpd.phar || curl -L https://phar.phpunit.de/phpcpd.phar -o phpcpd.phar
+    - php phpcpd.phar app/ --min-lines=50
+  dependencies: []
+  cache:
+    paths:
+      - phpcpd.phar
+  artifacts:
+    paths:
+      - artifacts/
+    expire_in: 1 week
+
+ANSIBLE:
+  stage: Deploy
+  image: mullnerz/ansible-playbook:2.9.1
+  only :
+    - master
+  when : manual
+  before_script:
+    #Generating the SSH key
+    - mkdir -p ~/.ssh
+    - echo -e "$PRIVATE_SSH_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - export IMAGE_NAME="$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME"
+    - export DEPLOY_TARGET=Production
+    - cd ansible
+  script:
+    #Executing the ansible-playbook
+    - chmod -v 700 $(pwd)
+    - echo $VAULT_PASSWORD | ansible-playbook --key-file ~/.ssh/id_rsa  playbook.yml -i hosts --ask-vault-pass
+
+SECURITY:
+  stage: Security
+  allow_failure: true
+  script:
+    - test -d security-checker || git clone https://github.com/sensiolabs/security-checker.git
+    - cd security-checker
+    - composer install
+    - php security-checker security:check ../composer.lock
+  dependencies: []
+  cache:
+    paths:
+      - security-checker/

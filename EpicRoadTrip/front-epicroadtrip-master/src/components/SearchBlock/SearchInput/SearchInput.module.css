@@ -1,0 +1,40 @@
+
+.input {
+    font-family: var(--font);
+    border: 1px solid #ccc;
+    color: #555;
+    padding: 4px 20px;
+    border-radius: 30px;
+    outline: none;
+}
+
+@media (max-width: 800px) {
+    .input {
+        width: max-content;
+    }
+}
+
+
+.input::placeholder {
+    color: #aaa;
+}
+
+.inputContainer {
+    width: 30%;
+}
+
+.dropDown {
+    position: absolute;
+    background-color: white;
+    padding: 10px;
+    line-height: 30px;
+}
+
+.dropDownItem {
+
+}
+
+.dropDownItem:hover {
+    background-color: #F05C51;
+    cursor: pointer;
+}

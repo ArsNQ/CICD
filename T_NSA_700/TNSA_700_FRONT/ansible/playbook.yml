@@ -1,0 +1,17 @@
+- name: Installing dependencies
+  hosts: Webserver
+  connection: ssh
+  roles:
+    - Base
+
+- name: Installing Nginx
+  hosts: Webserver
+  connection: ssh
+  roles:
+    - Nginx
+
+- name: Building Application and Hosting
+  hosts: Webserver
+  connection: ssh
+  roles:
+    - Production

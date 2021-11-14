@@ -1,0 +1,130 @@
+.container {
+    background-color: white;
+    border-radius: 15px;
+    width: 95%;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px;
+    box-shadow: 0 0 5px #ccc;
+
+    cursor: pointer;
+}
+
+.titleContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.titleText{
+    font-weight: bold;
+    color: #333;
+    font-size: 15px;
+
+}
+
+.titleTextSmaller{
+    font-size: 13px;
+}
+
+.arrow {
+    margin: auto 10px;
+    transform: translateY(2px);
+}
+
+.iconDeleteContainer {
+    border-radius: 50%;
+    color: white;
+    background-color:  rgb(226, 71, 71);
+    transform: rotate(-45deg);
+
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.iconDelete {
+    transform: translateY(-3px);
+    font-size: 30px;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 15px;
+    background-color: #eee;
+    max-height: 0;
+    transition: all ease 300ms;
+}
+
+.open {
+    max-height: 500px;
+    margin-top: 10px;
+}
+
+.item {
+    margin: 5px 10px;
+    font-weight: bold;
+    font-size: 13px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+
+}
+.item:first-child {
+    margin: 15px 10px 5px;
+}
+.item:last-child {
+    margin: 5px 10px 15px;
+}
+
+.actionContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.use{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: rgb(150, 187, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.icon {
+    background-color: dodgerblue;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 11px;
+    margin-right: 10px;
+
+
+}
+
+.icon > span {
+    font-weight: normal;
+    transform: translateY(-1px);
+}
