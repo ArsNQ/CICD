@@ -59,8 +59,8 @@ describe('Task APIs',()=>{
             chai.request(baseUrl)
             .get("/getLocalisationPlace")
              .query({
-                 place_id:"ChIJEW4ls3nVwkcRYGNkgT7xCgQ",
-                key:"AIzaSyDdx1I24HM4fZFbXydMRN4t3NK7A_uTdro"
+                 place_id:"xxxxxxx",
+                key:"xxxxxxxxx"
             })
             .end((err,res)=>{
                 res.should.have.status(200);
